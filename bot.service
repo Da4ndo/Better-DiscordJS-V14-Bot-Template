@@ -1,0 +1,10 @@
+[Unit]
+Description=<description_about_your_project>
+
+[Service]
+User=<user>
+WorkingDirectory=<working_directory> pl.: /home/.../WorkingDirectory/
+ExecStart=npm start run
+
+[Install]
+WantedBy=multi-user.target
