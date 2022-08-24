@@ -7,11 +7,15 @@ module.exports = {
     aliases: [],
 	description: 'Shutdown the bot.',
 	cooldown: 0,
-	permission: {
-        type: 'owners'
+	permissions: {
+        roles_permissions: {
+            user: [],
+            bot: [],
+        },
+        user_permission: {
+            type: 'owners',
+        }
     },
-	userPerms: [],
-	botPerms: [],
 	help: {
         usage: '{prefix}{command}',
     },

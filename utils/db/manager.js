@@ -1,10 +1,38 @@
 const mongoose = require('mongoose');
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 module.exports = {
     connect: async (client) => {   
-        mongoose.connect(`${client.config['database.settings'].url}${client.config['database.settings'].database}`, { useNewUrlParser: true, keepAlive: true });
+        process.stdout.write("> Connecting to database... \r");
+
+        mongoose.connect(`${client.config['database.settings'].url}${client.config['database.settings'].database}`, { useNewUrlParser: true, keepAlive: true }, function(err){
+            if (err) {
+                client.logger.error(err);
+                mongoose.connection.readyState = 1;
+                sleep(500);
+                process.stdout.write("\x1b[31m> Failed to connect to database. \x1b[0m\n");
+                process.exit(1);
+            }
+        });
+        var count = 0;
+        while (mongoose.connection.readyState !== 1) {
+
+            if (count === 3) {
+                count = 0;
+            }
+
+            // Don't blame me for this
+            var text = (count == 0) ? "> Connecting to database.  \r" : (count == 1) ? "> Connecting to database.. \r" : "> Connecting to database...\r";
+            process.stdout.write(text + " \r");
+            await sleep(500);
+
+            count++;
+        };
         client.logger.info(`[DB] Connected to database. (${client.config['database.settings'].url}${client.config['database.settings'].database})`);
-        console.log(`Connected to database. (${client.config['database.settings'].url}${client.config['database.settings'].database})`);
+        process.stdout.write(`\x1b[32m> Connected to database. (${client.config['database.settings'].url}${client.config['database.settings'].database})\x1b[0m\n`);
     },
     get: {
         server: (id) => {
@@ -15,7 +43,7 @@ module.exports = {
                     client.models.server.findOne({id: String(id)}, (err, server) => {
                         if (err) {
                         client.logger.error(err);
-                        console.log(err);
+                        console.log(`\x1b[31m> Error: ${err}\x1b[0m`);
                         reject(err);
                     }
                     if (server === null)  {
@@ -26,7 +54,7 @@ module.exports = {
                                 name: value.name,
                                 type: 'command',
                                 enabled: value.enabled,
-                                permission: value.permission,
+                                permission: value.permissions.user_permission,
                             });
                         });
                         client.slashCommands.forEach((value, key) => {
@@ -34,7 +62,7 @@ module.exports = {
                                 name: value.name,
                                 type: 'slashCommand',
                                 enabled: value.enabled,
-                                permission: value.permission,
+                                permission: value.permissions.user_permission,
                             });
                         });
                         const newServer = new client.models.server({
@@ -85,7 +113,7 @@ module.exports = {
                                         name: command.name,
                                         type: 'command',
                                         enabled: command.enabled,
-                                        permission: command.permission,
+                                        permission: command.permissions.user_permission,
                                     });    
                                 }
                             });
@@ -97,7 +125,7 @@ module.exports = {
                                         name: command.name,
                                         type: 'slashCommand',
                                         enabled: command.enabled,
-                                        permission: command.permission,
+                                        permission: command.permissions.user_permission,
                                     });    
                                 }
                             });
@@ -124,6 +152,8 @@ module.exports = {
                             
                             server.commands_data = new_commands_data;
                             (async () => await client.models.server.findOneAndUpdate({id: server.id}, {commands_data: server.commands_data}))(); 
+                            client.logger.info(`Updated commands list and data for a server (${server.id}).`);
+
                         }
                         // END
                         resolve(server) 
@@ -140,7 +170,7 @@ module.exports = {
                         name: value.name,
                         type: 'command',
                         enabled: value.enabled,
-                        permission: value.permission,
+                        permission: value.permissions.user_permission,
                     });
                 });
                 client.slashCommands.forEach((value, key) => {
@@ -148,7 +178,7 @@ module.exports = {
                         name: value.name,
                         type: 'slashCommand',
                         enabled: value.enabled,
-                        permission: value.permission,
+                        permission: value.permissions.user_permission,
                     });
                 });
                 server.commands_data = commands_data;
@@ -163,7 +193,7 @@ module.exports = {
                     client.models.manager.findOne({name: String(name)}, (err, manager) => {
                         if (err) {
                         client.logger.error(err);
-                        console.log(err);
+                        console.log(`\x1b[31m> Error: ${err}\x1b[0m`);
                         reject(err);
                     }
                     if (manager === null)  {

@@ -5,11 +5,20 @@ module.exports = {
 	enabled: true,
 	description: "Check bot's ping.",
 	type: ApplicationCommandType.ChatInput,
-	cooldown: 3000,
-	permission: {
-        type: null
+	cooldown: 0,
+	permissions: {
+        slash_register_data: {
+            default_permissions: null,
+            default_member_permissions: null,
+        },
+        roles_permissions: {
+            user: [],
+            bot: [],
+        },
+        user_permission: {
+            type: null
+        }
     },
-	dm_permission: false,
 	help: {
         usage: '/{command}',
     },

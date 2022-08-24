@@ -7,14 +7,19 @@ module.exports = {
 	description: 'Change the language.',
 	cooldown: 0,
 	type: ApplicationCommandType.ChatInput,
-    default_permissions: 'ManageGuild',
-    default_member_permissions: 'ManageGuild',
-    permission: {
-        type: 'guildOwner'
+    permissions: {
+        slash_register_data: {
+            default_permissions: 'ManageGuild',
+            default_member_permissions: 'ManageGuild',
+        },
+        roles_permissions: {
+            user: [],
+            bot: [],
+        },
+        user_permission: {
+            type: 'guildOwner'
+        }
     },
-    dm_permission: false,
-    userPerms: [],
-	botPerms: [],
     help: {
         usage: '/{command} [language]',
     },

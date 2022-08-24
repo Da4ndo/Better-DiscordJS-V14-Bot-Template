@@ -18,9 +18,9 @@ module.exports = (client) => {
 					description: slashCommand.description,
 					type: slashCommand.type,
 					options: slashCommand.options ? slashCommand.options : null,
-					default_permission: slashCommand.default_permission ? slashCommand.default_permission : null,
-					default_member_permissions: slashCommand.default_member_permissions ? PermissionsBitField.resolve(slashCommand.default_member_permissions).toString() : null,
-					dm_permission: slashCommand.dm_permission ? slashCommand.dm_permission : false
+					default_permission: slashCommand.permissions.slash_register_data.default_permission ? slashCommand.permissions.slash_register_data.default_permission : null,
+					default_member_permissions: slashCommand.permissions.slash_register_data.default_member_permissions ? PermissionsBitField.resolve(slashCommand.permissions.slash_register_data.default_member_permissions).toString() : null,
+					dm_permission: slashCommand.dm_permission ? true : false
 				});
 		
 				client.slashCommands.set(slashCommand.name, slashCommand);
@@ -38,9 +38,9 @@ module.exports = (client) => {
 				description: slashCommand.description,
 				type: slashCommand.type,
 				options: slashCommand.options ? slashCommand.options : null,
-				default_permission: slashCommand.default_permission ? slashCommand.default_permission : null,
-				default_member_permissions: slashCommand.default_member_permissions ? PermissionsBitField.resolve(slashCommand.default_member_permissions).toString() : null,
-				dm_permission: slashCommand.dm_permission ? slashCommand.dm_permission : null
+				default_permission: slashCommand.permissions.slash_register_data.default_permission ? slashCommand.permissions.slash_register_data.default_permission : null,
+				default_member_permissions: slashCommand.permissions.slash_register_data.default_member_permissions ? PermissionsBitField.resolve(slashCommand.permissions.slash_register_data.default_member_permissions).toString() : null,
+				dm_permission: slashCommand.dm_permission ? true : false
 			});
 		
 			client.slashCommands.set(slashCommand.name, slashCommand);
@@ -61,7 +61,7 @@ module.exports = (client) => {
 				client.logger.debug(`Registered Slash Commands`);
 			} catch (error) {
 				client.logger.error(error);
-				console.log(error);
+				console.log(`\x1b[31m> Error: ${error}\x1b[0m`);
 			}
 		})();
 	}

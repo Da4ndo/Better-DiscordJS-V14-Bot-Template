@@ -1,5 +1,5 @@
 const { EmbedBuilder, ApplicationCommandType } = require('discord.js');
-const lang = require('../utils/lang.js');
+const lang = require('../../utils/lang.js');
 
 module.exports = {
 	name: 'disable',
@@ -7,14 +7,21 @@ module.exports = {
 	description: 'Disable a command or slash command',
 	cooldown: 0,
 	type: ApplicationCommandType.ChatInput,
-    default_permissions: 'ManageGuild',
-    default_member_permissions: 'ManageGuild',
-    permission: {
-        type: null
+    permissions: {
+        slash_register_data: {
+            default_permissions: 'ManageGuild',
+            default_member_permissions: 'ManageGuild',
+        },
+        roles_permissions: {
+            user: [],
+            bot: [],
+        },
+        user_permission: {
+            type: null
+        }
     },
-    dm_permission: false,
     help: {
-        usage: '/{command} [command]',
+        usage: '/{command} [command] [command-type]',
     },
 	options: [
         {
@@ -55,7 +62,7 @@ module.exports = {
                         name: command.name,
                         type: 'command',
                         enabled: (argcommand === command.name && argtype === 'Command') ? false : command.enabled,
-                        permission: command.permission,
+                        permission: command.permissions.user_permission,
                     });    
                 }
             });
@@ -67,7 +74,7 @@ module.exports = {
                         name: command.name,
                         type: 'slashCommand',
                         enabled: (argcommand === command.name && argtype === 'SlashCommand') ? false : command.enabled,
-                        permission: command.permission,
+                        permission: command.permissions.user_permission,
                     });    
                 }
             });

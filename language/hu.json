@@ -10,7 +10,7 @@
         },
         "permisson_denied_user": "🚫 {0}, Nincs engedélye a parancs használatához!",
         "permisson_denied_bot": "🚫 {0}, Nincs `{1}` engedélyem a parancs használatához!",
-        "databse": {
+        "database": {
             "not_enabled": "🚫 The database is not enabled. You can only use this command if the database is enabled. If you don't want to use databse, but want to make this action then do it manually."
         }
     },
@@ -23,7 +23,7 @@
         },
         "ticket": {
             "setup": "A jegyre reagálva megnyílik egy csatorna, ahol beszélhet a személyzettel.",
-            "reply1": "✅ Sikeres jegycsatorna létrehozása! ({1})",
+            "reply1": "✅ Sikeres jegycsatorna létrehozása! ({0})",
             "reply2": "✅ Jegycsatorna sikeresen létrehozva itt: **{0}**! @here"
         },
         "group": {
@@ -34,6 +34,11 @@
             "deleted": "✅ Successfully deleted group `{0}`!",
             "added": "✅ Successfully added role {0} to group `{1}`!",
             "removed": "✅ Successfully removed role {0} from group `{1}`!"
+        },
+        "permission": {
+            "changed": "✅ Successfully changed permission of command `{0}`.",
+            "not_owner": "🚫 You are not the/an owner of this bot. You can not set a command permission for only owners.",
+            "command_only_owner": "🚫 You are not the/an owner of this bot. You can not change permission of command with only owners permission."
         },
         "setup": {
             "succesful": "A(z) {0} sikeresen beállítva.",

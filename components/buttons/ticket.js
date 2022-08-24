@@ -1,4 +1,4 @@
-const { ChannelType } = require('discord.js');
+const { ChannelType, EmbedBuilder } = require('discord.js');
 const moment = require('moment');
 const lang = require('../../utils/lang.js');
 
@@ -19,9 +19,11 @@ module.exports = {
                 content: lang('commands:ticket:reply1', server.language, [channel]),
                 ephemeral: true
             })
-            await channel.send({
-                content: lang('commands:ticket:reply2', server.language, [moment().format('YYYY.MM.DD hh:mm:ss')]),
-            })
+
+            const ticketCreated = new EmbedBuilder()
+            .setDescription(lang('commands:ticket:reply2', server.language, [moment().format('YYYY.MM.DD hh:mm:ss')]))
+            .setColor('Green');
+            await channel.send({embeds: [ticketCreated]});
         });
     }
 };

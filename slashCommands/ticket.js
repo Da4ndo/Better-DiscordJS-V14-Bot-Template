@@ -7,12 +7,19 @@ module.exports = {
 	description: 'Manage ticket.',
 	cooldown: 0,
 	type: ApplicationCommandType.ChatInput,
-    default_permissions: 'ManageGuild',
-    default_member_permissions: 'ManageGuild',
-    permission: {
-        type: null
+    permissions: {
+        slash_register_data: {
+            default_permissions: 'ManageGuild',
+            default_member_permissions: 'ManageGuild',
+        },
+        roles_permissions: {
+            user: [],
+            bot: [],
+        },
+        user_permission: {
+            type: null,
+        }
     },
-    dm_permission: false,
     help: {
         usage: '/{command} [command] (args)',
     },
@@ -63,7 +70,7 @@ module.exports = {
                 
                 } catch (e) {
                     client.logger.error(e)
-                    console.log(e);
+                    console.log(`\x1b[31m> Error: ${e}\x1b[0m`);
                     await interaction.reply({content: lang('commands:setup:error', server.language), ephemeral: true})
                 }
             }  

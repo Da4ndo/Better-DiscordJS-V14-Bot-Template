@@ -6,11 +6,16 @@ module.exports = {
     aliases: [],
 	description: 'Check bot\'s ping.',
 	cooldown: 3000,
-	permission: { 
-		type: null,
-	},
-	userPerms: [],
-	botPerms: [],
+	permissions: {
+        roles_permissions: {
+            user: [],
+            bot: [],
+        },
+        user_permission: {
+            type: 'group',
+            group: 'test'
+        }
+    },
 	help: {
         usage: '{prefix}{command}',
     },

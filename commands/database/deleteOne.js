@@ -6,11 +6,15 @@ module.exports = {
     aliases: [],
 	description: 'Delete one server data.',
 	cooldown: 0,
-	permission: {
-        type: 'owners'
+	permissions: {
+        roles_permissions: {
+            user: [],
+            bot: [],
+        },
+        user_permission: {
+            type: 'owners',
+        }
     },
-	userPerms: [],
-	botPerms: [],
 	help: {
         usage: '{prefix}{command}',
     },

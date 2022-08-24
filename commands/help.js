@@ -3,15 +3,19 @@ const lang = require('../utils/lang.js');
 
 module.exports = {
 	name: 'help',
-    enabled: false,
+    enabled: true,
     aliases: [],
 	description: 'Show list of commands.',
 	cooldown: 0,
-    permission: {
-        type: null
+    permissions: {
+        roles_permissions: {
+            user: [],
+            bot: [],
+        },
+        user_permission: {
+            type: null,
+        }
     },
-	userPerms: [],
-	botPerms: [],
     help: {
         usage: '{prefix}{command} [command]',
     },

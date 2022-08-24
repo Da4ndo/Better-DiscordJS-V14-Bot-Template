@@ -28,17 +28,27 @@ client.on('messageCreate', async (message) => {
 			return;
 		}
 		client.logger.debug(`[MessageEvent] Command "${cmd}" used by ${message.author.username} (${message.author.id}).`);
+		
+		console.log('Groups:')
+		console.log(server.groups[server.commands_data.filter(c => c.name === command.name)[0].permission.group])
+		console.log(server.groups.test)
+
+		const user_is_owner = client.config.owners.includes(String(message.author.id));
+		const user_role_have_permission = message.member.permissions.has(PermissionsBitField.resolve(command.permissions.roles_permissions.user || []));
+		const user_have_permission = ((server.commands_data.filter(c => c.name === command.name)[0].permission.type === null) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'owners' && client.config.owners.includes(String(message.author.id))) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'guildOwner' && message.guild.ownerID === message.author.id) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'role' && message.member.roles.cache.some(role => server.commands_data.filter(c => c.name === command.name)[0].permission.role === role.id)) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'group' && message.member.roles.cache.some(role => (server.groups.has(server.commands_data.filter(c => c.name === command.name)[0].permission.group) ? server.groups.get(server.commands_data.filter(c => c.name === command.name)[0].permission.group) : []).includes(String(role.id)))));
+
+
 		if(command.cooldown) {
-			if(cooldown.has(`${command.name}${message.author.id}`)) return message.channel.send({ content: lang('cooldown', ms(cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true}) ) });
-			if (!message.member.permissions.has(PermissionsBitField.resolve(command.userPerms || [])) || !((server.commands_data.filter(c => c.name === command.name)[0].permission && !server.commands_data.filter(c => c.name === command.name)[0].permission.type) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'owners' && client.config.owners.includes(String(message.author.id))) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'guildOwner' && message.guild.ownerID === message.author.id) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'role' && message.member.roles.cache.some(role => server.commands_data.filter(c => c.name === command.name)[0].permission.role === role.id)) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'group' && message.member.roles.cache.some(role => (server.groups.has(server.commands_data.filter(c => c.name === command.name)[0].permission.group) ? server.groups.get(server.commands_data.filter(c => c.name === command.name)[0].permission.group) : []).includes(role.id))))) {
+			if(cooldown.has(`${command.name}${message.author.id}`)) return message.channel.send({ content: lang('cooldown', server.language, [ms(cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})]) });
+			if (!user_is_owner && (!user_role_have_permission || !user_have_permission)) {
 				const userPerms = new EmbedBuilder()
 				.setDescription(lang('system:permisson_denied_user', server.language, [message.author]))
 				.setColor('Red');
 				return message.reply({ embeds: [userPerms] })
 			}
-			if(!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(command.botPerms || []))) {
+			if(!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(command.permissions.roles_permissions.bot || []))) {
 				const botPerms = new EmbedBuilder()
-				.setDescription(lang('system:permisson_denied_bot', server.language, [message.author, command.botPerms]))
+				.setDescription(lang('system:permisson_denied_bot', server.language, [message.author, command.permissions.roles_permissions.bot]))
 				.setColor('Red');
 				return message.reply({ embeds: [botPerms] })
 			}
@@ -50,16 +60,16 @@ client.on('messageCreate', async (message) => {
 			}, command.cooldown);
 
 		} else {
-			if (!message.member.permissions.has(PermissionsBitField.resolve(command.userPerms || [])) || !((server.commands_data.filter(c => c.name === command.name)[0].permission && !server.commands_data.filter(c => c.name === command.name)[0].permission.type) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'owners' && client.config.owners.includes(String(message.author.id))) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'guildOwner' && message.guild.ownerID === message.author.id) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'role' && message.member.roles.cache.some(role => server.commands_data.filter(c => c.name === command.name)[0].permission.role === role.id)) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'group' && message.member.roles.cache.some(role => (server.groups.has(server.commands_data.filter(c => c.name === command.name)[0].permission.group) ? server.groups.get(server.commands_data.filter(c => c.name === command.name)[0].permission.group) : []).includes(role.id))))) {
+			if (!user_is_owner && (!user_role_have_permission || !user_have_permission)) {
 				const userPerms = new EmbedBuilder()
 				.setDescription(lang('system:permisson_denied_user', server.language, [message.author]))
 				.setColor('Red');
 				return message.reply({ embeds: [userPerms] })
 			}
 		
-			if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(command.botPerms || []))) {
+			if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(command.permissions.roles_permissions.bot || []))) {
 				const botPerms = new EmbedBuilder()
-				.setDescription(lang('system:permisson_denied_bot', server.language, [message.author, command.botPerms]))
+				.setDescription(lang('system:permisson_denied_bot', server.language, [message.author, command.permissions.roles_permissions.bot]))
 				.setColor('Red');
 				return message.reply({ embeds: [botPerms] })
 			}
