@@ -11,6 +11,7 @@ class Logger {
 
     init = () => {
         return new Promise((resolve, reject) => {
+            if (!fs.existsSync(path.dirname(this.logfile))) fs.mkdirSync(path.dirname(this.logfile), { recursive: true });
             fs.exists(this.logfile, (exists) => {
                 if(exists)
                 {

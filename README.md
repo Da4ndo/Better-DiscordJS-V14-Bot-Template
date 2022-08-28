@@ -75,7 +75,7 @@ node bot.js
 
 ---------------
 
-### Setup bot as a service (***linux only***):
+### Setup bot as a service (***linux only***, ***SYSTEMD WAY***):
 
 1. Modify bot.service name to <your_bot_name>.service and fill the missing data in it.
 
