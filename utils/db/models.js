@@ -7,7 +7,7 @@ const ServerModel = mongoose.Schema({
     commands_data: [],
     enabled_events: [String],
     enabled_managers: [String],
-    groups: Map
+    groups: {}
 });
 
 const ManagerModel = mongoose.Schema({

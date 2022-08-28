@@ -5,13 +5,13 @@
             "not_found": "🚫 A parancs `{0}` nem található. Az elérhető parancsok listájának megtekintéséhez használja a „help” parancsot.",
             "not_found_suggestion": "🚫 A parancs `{0}` nem található. Úgy értetted: `{0}`",
             "not_enabled": "🚫 Ez a parancs `{0}` nem engedélyezett a szerveren.",
-            "enabled": "✅ Enabled command `{0}` in this server.",
-            "disabled": "🚫 Disabled command `{0}` in this server."
+            "enabled": "✅ A(z) `{0}` parancs engedélyezve ezen a szerveren.",
+            "disabled": "🚫 A(z) `{0}` parancs letiltva ezen a szerveren."
         },
         "permisson_denied_user": "🚫 {0}, Nincs engedélye a parancs használatához!",
         "permisson_denied_bot": "🚫 {0}, Nincs `{1}` engedélyem a parancs használatához!",
         "database": {
-            "not_enabled": "🚫 The database is not enabled. You can only use this command if the database is enabled. If you don't want to use databse, but want to make this action then do it manually."
+            "not_enabled": "🚫 Az adatbázis nincs engedélyezve. Ezt a parancsot csak akkor használhatja, ha az adatbázis engedélyezve van. Ha el akarja végezni a műveletet, tegye azt manuálisan."
         }
     },
     "commands": {
@@ -27,18 +27,18 @@
             "reply2": "✅ Jegycsatorna sikeresen létrehozva itt: **{0}**! @here"
         },
         "group": {
-            "title": "📝 Group {0}List",
-            "not_existing": "🚫 Group `{0}` not found!",
-            "already_existing": "🚫 Group `{0}` already exists!",
-            "created": "✅ Successfully created group `{0}`!",
-            "deleted": "✅ Successfully deleted group `{0}`!",
-            "added": "✅ Successfully added role {0} to group `{1}`!",
-            "removed": "✅ Successfully removed role {0} from group `{1}`!"
+            "title": "📝 Csoport {0}lista",
+            "not_existing": "🚫 A(z) `{0}` csoport nem található!",
+            "already_existing": "🚫 A(z) `{0}` csoport már létezik!",
+            "created": "✅ A(z) `{0}` csoport sikeresen létrehozva!",
+            "deleted": "✅ A(z) `{0}` csoport sikeresen törölve!",
+            "added": "✅ A(z) {0} szerep sikeresen hozzáadva a(z) `{1}` csoporthoz!",
+            "removed": "✅ A(z) {0} szerep sikeresen eltávolítva a(z) `{1}` csoportból!"
         },
         "permission": {
-            "changed": "✅ Successfully changed permission of command `{0}`.",
-            "not_owner": "🚫 You are not the/an owner of this bot. You can not set a command permission for only owners.",
-            "command_only_owner": "🚫 You are not the/an owner of this bot. You can not change permission of command with only owners permission."
+            "changed": "✅ A(z) `{0}` parancs engedélye sikeresen módosítva.            ",
+            "not_owner": "🚫 Nem te vagy a tulajdonosa ennek a robotnak. Nem állíthat be parancsengedélyt ***csak tulajdonosoknak***.",
+            "command_only_owner": "🚫 Nem te vagy a tulajdonosa ennek a robotnak. A parancs engedélyét nem módosíthatja ***csak tulajdonosok*** engedélyel lévő parancsnak."
         },
         "setup": {
             "succesful": "A(z) {0} sikeresen beállítva.",

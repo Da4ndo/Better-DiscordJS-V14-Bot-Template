@@ -27,8 +27,9 @@ client.on('interactionCreate', async (interaction) => {
 		try {
 			const user_is_owner = client.config.owners.includes(String(interaction.user.id));
 			const user_role_have_permission = interaction.memberPermissions.has(PermissionsBitField.resolve(slashCommand.permissions.roles_permissions.user || []));		
-			const user_have_permission = ((server.commands_data.filter(command => command.name === slashCommand.name)[0].permission.type === null) || (server.commands_data.filter(command => command.name === slashCommand.name)[0].permission.type == 'owners' && client.config.owners.includes(String(interaction.user.id))) || (server.commands_data.filter(command => command.name === slashCommand.name)[0].permission.type == 'guildOwner' && interaction.guild.ownerID === interaction.user.id) || (server.commands_data.filter(command => command.name === slashCommand.name)[0].permission.type == 'role' && interaction.member.roles.cache.some(role => server.commands_data.filter(command => command.name === slashCommand.name)[0].permission.role === role.id)) || (server.commands_data.filter(command => command.name === slashCommand.name)[0].permission.type == 'group' && interaction.member.roles.cache.some(role => (server.groups.has(server.commands_data.filter(command => command.name === slashCommand.name)[0].permission.group) ? server.groups.get(server.commands_data.filter(command => command.name === slashCommand.name)[0].permission.group) : []).includes(String(role.id)))));
-			
+			const user_have_permission = ((server.commands_data.filter(command => command.name === slashCommand.name && command.type == 'slashCommand')[0].permission.type === null) || (server.commands_data.filter(command => command.name === slashCommand.name && command.type == 'slashCommand')[0].permission.type == 'owners' && client.config.owners.includes(String(interaction.user.id))) || (server.commands_data.filter(command => command.name === slashCommand.name && command.type == 'slashCommand')[0].permission.type == 'guildOwner' && interaction.guild.ownerID === interaction.user.id) || (server.commands_data.filter(command => command.name === slashCommand.name && command.type == 'slashCommand')[0].permission.type == 'role' && interaction.member.roles.cache.some(role => server.commands_data.filter(command => command.name === slashCommand.name && command.type == 'slashCommand')[0].permission.role === role.id)) || (server.commands_data.filter(command => command.name === slashCommand.name && command.type == 'slashCommand')[0].permission.type == 'group' && 
+			interaction.member.roles.cache.some(role => (server.groups[server.commands_data.filter(command => command.name === slashCommand.name && command.type == 'slashCommand')[0].permission.group] || []).includes(String(role.id)))));
+
 			if(slashCommand.cooldown) {
 				if(cooldown.has(`slash-${slashCommand.name}${interaction.user.id}`)) return interaction.reply({ content: lang('cooldown', server.language, [ms(cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})]) })
 				if (!user_is_owner && (!user_role_have_permission || !user_have_permission)) {
@@ -67,6 +68,7 @@ client.on('interactionCreate', async (interaction) => {
 				await slashCommand.run(client, interaction);
 			}
 		} catch (e) {
+			console.log(e)
 			client.logger.error(e);
 			console.log(`\x1b[31m> Error: ${e}\x1b[0m`);
 		}
@@ -89,5 +91,18 @@ client.on('interactionCreate', async (interaction) => {
 				console.log(`\x1b[31m> Error: ${e}\x1b[0m`);
 			}
 		}
+	} else if (interaction.isSelectMenu) {
+		const select_menu = client.select_menus.get(interaction.customId);
+
+		if (select_menu)
+		{
+			try {
+				await select_menu.run(client, interaction);
+			} catch (e) {
+				client.logger.error(e);
+				console.log(`\x1b[31m> Error: ${e}\x1b[0m`);
+			}
+		}
 	}
+	
 });

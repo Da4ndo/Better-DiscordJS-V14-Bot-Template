@@ -19,7 +19,7 @@ client.on('messageCreate', async (message) => {
 
 	if (!server.enabled_events.includes('messageCreate')) return; // Returns if event is disabled
 	if(command) {
-		if (!server.commands_data.some(c => c.name === command.name && c.enabled === true)) {
+		if (!server.commands_data.some(c => c.name === command.name && c.type == 'commands' && c.enabled === true)) {
 			// COMMAND NOT ENABLED
 			const commandNotEnabled = new EmbedBuilder()
 			.setDescription(lang('system:command:not_enabled', server.language, [cmd]))
@@ -28,15 +28,10 @@ client.on('messageCreate', async (message) => {
 			return;
 		}
 		client.logger.debug(`[MessageEvent] Command "${cmd}" used by ${message.author.username} (${message.author.id}).`);
-		
-		console.log('Groups:')
-		console.log(server.groups[server.commands_data.filter(c => c.name === command.name)[0].permission.group])
-		console.log(server.groups.test)
 
 		const user_is_owner = client.config.owners.includes(String(message.author.id));
 		const user_role_have_permission = message.member.permissions.has(PermissionsBitField.resolve(command.permissions.roles_permissions.user || []));
-		const user_have_permission = ((server.commands_data.filter(c => c.name === command.name)[0].permission.type === null) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'owners' && client.config.owners.includes(String(message.author.id))) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'guildOwner' && message.guild.ownerID === message.author.id) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'role' && message.member.roles.cache.some(role => server.commands_data.filter(c => c.name === command.name)[0].permission.role === role.id)) || (server.commands_data.filter(c => c.name === command.name)[0].permission.type == 'group' && message.member.roles.cache.some(role => (server.groups.has(server.commands_data.filter(c => c.name === command.name)[0].permission.group) ? server.groups.get(server.commands_data.filter(c => c.name === command.name)[0].permission.group) : []).includes(String(role.id)))));
-
+		const user_have_permission = ((server.commands_data.filter(c => c.name === command.name && c.type == 'commands')[0].permission.type === null) || (server.commands_data.filter(c => c.name === command.name && c.type == 'commands')[0].permission.type == 'owners' && client.config.owners.includes(String(message.author.id))) || (server.commands_data.filter(c => c.name === command.name && c.type == 'commands')[0].permission.type == 'guildOwner' && message.guild.ownerID === message.author.id) || (server.commands_data.filter(c => c.name === command.name && c.type == 'commands')[0].permission.type == 'role' && message.member.roles.cache.some(role => server.commands_data.filter(c => c.name === command.name && c.type == 'commands')[0].permission.role === role.id)) || (server.commands_data.filter(c => c.name === command.name && c.type == 'commands')[0].permission.type == 'group' && message.member.roles.cache.some(role => (server.groups[server.commands_data.filter(c => c.name === command.name && c.type == 'commands')[0].permission.group] || []).includes(String(role.id)))));
 
 		if(command.cooldown) {
 			if(cooldown.has(`${command.name}${message.author.id}`)) return message.channel.send({ content: lang('cooldown', server.language, [ms(cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})]) });

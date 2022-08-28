@@ -12,8 +12,7 @@ module.exports = {
             bot: [],
         },
         user_permission: {
-            type: 'group',
-            group: 'test'
+            type: null
         }
     },
 	help: {

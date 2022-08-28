@@ -5,7 +5,7 @@ module.exports = {
 	enabled: true,
 	description: "Check bot's ping.",
 	type: ApplicationCommandType.ChatInput,
-	cooldown: 0,
+	cooldown: 3000,
 	permissions: {
         slash_register_data: {
             default_permissions: null,

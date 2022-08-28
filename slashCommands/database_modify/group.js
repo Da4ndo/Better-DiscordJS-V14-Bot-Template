@@ -110,12 +110,12 @@ module.exports = {
                 const name = interaction.options.get('name').value;
                 const role = interaction.options.get('role').role;
                 
-                if (!server.groups.has(name)) { interaction.reply({content: lang('commands:group:not_existing', server.language, [name])}); return; }
+                if (!server.groups.hasOwnProperty(name)) { interaction.reply({content: lang('commands:group:not_existing', server.language, [name])}); return; }
 
-                let new_list = server.groups.get(name);
+                let new_list = server.groups[name];
                 new_list.push(String(role.id));
                 
-                server.groups.set(name, new_list);
+                server.groups[name] = new_list;
                 await client.models.server.findOneAndUpdate({id: server.id}, {groups: server.groups});
 
                 interaction.reply({content: lang('commands:group:added', server.language, [role, name])});
@@ -124,11 +124,12 @@ module.exports = {
                 const name = interaction.options.get('name').value;
                 const role = interaction.options.get('role').role;
 
-                if (!server.groups.has(name)) { interaction.reply({content: lang('commands:group:not_existing', server.language, [name])}); return; }
+                if (!server.groups.hasOwnProperty(name)) { interaction.reply({content: lang('commands:group:not_existing', server.language, [name])}); return; }
 
-                let new_list = server.groups.get(name);
+                let new_list = server.groups[name];
                 new_list.splice(new_list.indexOf(String(role.id)), 1);
-                server.groups.set(name, new_list);
+
+                server.groups[name] = new_list;
                 await client.models.server.findOneAndUpdate({id: server.id}, {groups: server.groups});
                 
                 interaction.reply({content: lang('commands:group:removed', server.language, [role, name])});
@@ -137,9 +138,9 @@ module.exports = {
                 const name = interaction.options.getString('name');
                 
                 if (name) {
-                    if (!server.groups.has(name)) { interaction.reply({content: lang('commands:group:not_existing', server.language, [name])}); return; }
+                    if (!server.groups.hasOwnProperty(name)) { interaction.reply({content: lang('commands:group:not_existing', server.language, [name])}); return; }
                     let roles = [];
-                    server.groups.get(name).forEach(rId => { 
+                    server.groups[name].forEach(rId => { 
                         let role = interaction.guild.roles.cache.find(r => r.id === rId);
                         if (role) {
                             roles.push(`<@&${role.id}>`);
@@ -156,7 +157,7 @@ module.exports = {
                 } else {
                     listembed = new EmbedBuilder()
                         .setTitle(lang('commands:group:title', server.language, ['']))
-                        .setDescription(`\`\`\`${Array.from(server.groups.keys()).join('\n')}\n\`\`\``)
+                        .setDescription(`\`\`\`${Array.from(Object.keys(server.groups)).join('\n')}\n\`\`\``)
                         .setColor('#EEEEEC')
                         .setThumbnail(client.user.avatarURL())
                         .setTimestamp()
@@ -166,9 +167,9 @@ module.exports = {
             } else if (interaction.options._subcommand === 'create') {
                 const name = interaction.options.get('name').value;
                 
-                if (server.groups.has(name)) { interaction.reply({content: lang('commands:group:already_existing', server.language, [name])}); return; }
+                if (server.groups.hasOwnProperty(name)) { interaction.reply({content: lang('commands:group:already_existing', server.language, [name])}); return; }
 
-                server.groups.set(name, []);
+                server.groups[name] = [];
                 await client.models.server.findOneAndUpdate({id: server.id}, {groups: server.groups});
 
                 interaction.reply({content: lang('commands:group:created', server.language, [name])});
@@ -176,13 +177,12 @@ module.exports = {
             } else if (interaction.options._subcommand === 'delete') {
                 const name = interaction.options.get('name').value;
 
-                if (!server.groups.has(name)) { interaction.reply({content: lang('commands:group:not_existing', server.language, [name])}); return; }
+                if (!server.groups.hasOwnProperty(name)) { interaction.reply({content: lang('commands:group:not_existing', server.language, [name])}); return; }
 
-                server.groups.delete(name);
+                delete server.groups[name];
                 await client.models.server.findOneAndUpdate({id: server.id}, {groups: server.groups});
                 
                 interaction.reply({content: lang('commands:group:deleted', server.language, [name])});
-                
             }
         } else {
             const commandNotEnabled = new EmbedBuilder()

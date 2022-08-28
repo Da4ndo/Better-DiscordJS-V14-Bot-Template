@@ -1,7 +1,6 @@
 <p align="center">
     <img src="https://forthebadge.com/images/badges/powered-by-electricity.svg" />
     <img src="https://forthebadge.com/images/badges/powered-by-black-magic.svg" />
-    <img src="ttps://forthebadge.com/images/badges/it-works-why.svg"/>
 </p>
 
 <p align="center">
@@ -32,15 +31,13 @@
 
 # Better DiscordJS V14 Bot Template
 
-The Discord bot project made with the npm package discord.js version 14 and it handles prefix commands, slash commands, events and components, and there is a logger and a language manager too. You can create many commands as you want to improve your Bot. **Project made with ❤ by Da4ndo.**
+The Discord bot project made with the npm package discord.js version 14 and it handles prefix commands, slash commands, events and components, and there is a logger and a language manager too. You can create many commands as you want to improve your Bot. The bot can work in two ways. Either use a database or don't. **Project made with ❤ by Da4ndo.**
 
 You can click on the star (⭐️) button above this repository if you liked this project! Thank you all. 🙏
 
 Discord.js Documentation is linked [here](https://discord.js.org/#/docs/discord.js/main/general/welcome).
 
-> The project is specialized for one config usage on all server.
->
-> There are a few basic PrefixCommands/SlashCommands/Events/Components added.
+> **Note:** There are a few basic PrefixCommands/SlashCommands/Events/Components added.
 
 # How to setup:
 
@@ -58,6 +55,12 @@ npm install discord.js @discordjs/rest ms dotenv moment mongoose
 ### 2. Modifying configs
 
 Set token and client id in **.env**, and modify settings to your preference in **config.json**
+
+(Checkout documentation file [here](https://github.com/Da4ndo/Better-DiscordJS-V14-Bot-Template/blob/main/DOCS.md).)
+
+## Database
+
+Supported database is **MongoDB**. You need a link/IP address for the bot (eg.: `mongodb://root:<password>@link.mongodb.net/` or `mongodb://192.168.XXX.XXX/`). For local database use **docker-compose.yml**. To get the IP address of the local database you can use Visual Studio Code > Docker Extension. Choose the **container** > **right click** > **select inspect** and the bottom of the file, there is "IpAddress" parameter.
 
 # How to start?
 
@@ -89,11 +92,11 @@ sudo systemctl start <your_bot_name>
 ```
 
 
-> You can view it's logs using the following command: 
+> **Note:** You can view it's logs using the following command: 
 ```bash
 journalctl -u <your_bot_name>
 ```
 
 # How to develop
 
-For more information checkout **DOCS.md**.
+For information checkout [**DOCS.md**](https://github.com/Da4ndo/Better-DiscordJS-V14-Bot-Template/blob/main/DOCS.md).

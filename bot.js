@@ -22,6 +22,7 @@ client.commands = new Collection()
 client.aliases = new Collection()
 client.slashCommands = new Collection();
 client.buttons = new Collection();
+client.select_menus = new Collection();
 client.prefix = config['universal.settings'].prefix;
 client.config = config;
 client.models = require('./utils/db/models.js');
