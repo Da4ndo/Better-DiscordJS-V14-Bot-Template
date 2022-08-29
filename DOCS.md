@@ -37,7 +37,7 @@
 
 ### Owners Setting
 
-You can set the bot's owners in config.json. You need to add the ownerss discord IDs to the "owners" list. When you enter the IDs, make sure to enclose them in double quotes. `e.g.: {"owners": ["ID1", "ID2"]}`
+You can set the bot's owners in config.json. You need to add the ownerss discord IDs to the "owners" list. When you enter the IDs make sure to enclose them in double quotes. `e.g.: {"owners": ["ID1", "ID2"]}`
 
 ### Database Settings
 
