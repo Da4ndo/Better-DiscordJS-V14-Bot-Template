@@ -31,7 +31,7 @@
 
 # Better DiscordJS V14 Bot Template
 
-The Discord bot project made with the npm package discord.js version 14 and it handles prefix commands, slash commands, events and components, and there is a logger and a language manager too. You can create many commands as you want to improve your Bot. The bot can work in two ways. Either use a database or don't. **Project made with ❤ by Da4ndo.**
+The Discord bot project made with the npm package of discord.js version 14. It handles prefix/slash commands, events, components, multiple languages and logging. You can create as many commands as you want to shape your Bot as you want. **Project made with ❤ by Da4ndo.**
 
 You can click on the star (⭐️) button above this repository if you liked this project! Thank you all. 🙏
 
@@ -60,7 +60,12 @@ Set token and client id in **.env**, and modify settings to your preference in *
 
 ## Database
 
-Supported database is **MongoDB**. You need a link/IP address for the bot (eg.: `mongodb://root:<password>@link.mongodb.net/` or `mongodb://192.168.XXX.XXX/`). For local database use **docker-compose.yml**. To get the IP address of the local database you can use Visual Studio Code > Docker Extension. Choose the **container** > **right click** > **select inspect** and the bottom of the file, there is "IpAddress" parameter.
+The bot can work in two ways, either with a database or not.
+
+Supported database is **MongoDB**. You need a link/IP address for the bot (eg.: `mongodb://root:<password>@link.mongodb.net/` or `mongodb://192.168.XXX.XXX/`). For local database use **docker-compose.yml**. There are two ways to get the IP address of the local database you can use Visual Studio Code > Docker Extension. Choose the **container** > **right click** > **select inspect** and the bottom of the file, there is "IpAddress" parameter or by executing this simple command 
+```bash
+docker inspect <containerName> -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"
+```
 
 # How to start?
 
@@ -82,7 +87,7 @@ node bot.js
 2. Now you need to put it in the system services folder:
 
 ```bash
-mv <your_bot_name>.service /etc/systemd/system/<your_bot_name>.service
+sudo mv <your_bot_name>.service /etc/systemd/system/<your_bot_name>.service
 ```
 
 3. How to start:
@@ -92,11 +97,15 @@ sudo systemctl start <your_bot_name>
 ```
 
 
-> **Note:** You can view it's logs using the following command: 
+You can view it's logs using the following command: 
 ```bash
 journalctl -u <your_bot_name>
+```
+or use this command to tail the log:
+```bash
+journalctl -fu <your_bot_name>
 ```
 
 # How to develop
 
-For information checkout [**DOCS.md**](https://github.com/Da4ndo/Better-DiscordJS-V14-Bot-Template/blob/main/DOCS.md).
+For more information checkout [**DOCS.md**](https://github.com/Da4ndo/Better-DiscordJS-V14-Bot-Template/blob/main/DOCS.md).
