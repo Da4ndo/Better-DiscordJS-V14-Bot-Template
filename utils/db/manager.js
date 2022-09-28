@@ -36,7 +36,7 @@ module.exports = {
     },
     get: {
         server: (id) => {
-            const client = require('../..');
+            const client = require('../../bot');
             client.logger.debug('Called get_server');
             if (client.config['database.settings'].enabled) {
                 return new Promise((resolve, reject) => {
@@ -75,7 +75,7 @@ module.exports = {
                             groups: new Map()
                         });
                         newServer.save();
-                        client.logger.debug(`[BD] Added new server to database. (${id})`);
+                        client.logger.debug(`[DB] Added new server to database. (${id})`);
                         
                         resolve({
                             id: String(id),
@@ -186,7 +186,7 @@ module.exports = {
             }
         },
         manager: (name) => {
-            const client = require('../..');
+            const client = require('../../bot');
             client.logger.debug('Called get_manager');
             if (client.config['database.settings'].enabled) {
                 return new Promise((resolve, reject) => {
@@ -202,7 +202,7 @@ module.exports = {
                             data: new Map(),
                         });
                         newManager.save();
-                        client.logger.debug(`[BD] Added new manager to database. (${name})`);
+                        client.logger.debug(`[DB] Added new manager to database. (${name})`);
                         
                         resolve({
                             name: name,
