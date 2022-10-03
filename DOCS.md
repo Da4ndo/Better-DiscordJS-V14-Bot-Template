@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-	<img src="https://media.discordapp.net/attachments/781636061000368209/1010141641836855376/0_E7ioyfbvAEI4v8ta.jpeg?width=960&height=540" height="200" style="float: left; margin: 0px 10px 15px 1px;"/> <a style="font-size: 20px"> <a style="font-size: 30px"><br>
+	<img src="https://cdn.discordapp.com/attachments/781571299385540649/1026575412601565284/0_E7ioyfbvAEI4v8ta.jpeg?width=960&height=540" height="200" style="float: left; margin: 0px 10px 15px 1px;"/> <a style="font-size: 20px"> <a style="font-size: 30px"><br>
 </p>
 
 <p align="center">
