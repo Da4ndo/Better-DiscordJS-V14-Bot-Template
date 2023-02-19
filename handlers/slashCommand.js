@@ -1,6 +1,5 @@
 const fs = require('fs');
-const { PermissionsBitField } = require('discord.js');
-const { Routes } = require('discord.js');
+const { PermissionsBitField, Routes } = require('discord.js');
 const { REST } = require('@discordjs/rest')
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 

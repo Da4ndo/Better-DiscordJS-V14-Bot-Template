@@ -36,22 +36,22 @@ module.exports = {
         var chs = fs.readdirSync(`./language/`).filter(file => file.endsWith('.json') && !file.startsWith('#'));
         chs.forEach(c => {
             choices.push({
-                name: `${c.replace('.json', '')}`,
-                value: `${c.replace('.json', '')}`
+                name: `${c.replace(/\.json$/, '')}`,
+                value: `${c.replace(/\.json$/, '')}`
             });
         });
         interaction.respond(choices).catch(console.error);
     },
     run: async (client, interaction) => {
         if (client.config['database.settings'].enabled) {
-            await client.models.server.findOneAndUpdate({id: interaction.guild.id}, {language: interaction.options.get('language').value.replace('.json', '')});
-            client.logger.info(`Language changed to ${interaction.options.get('language').value.replace('.json', '')} at server ${interaction.guild.name}`);
+            await client.models.server.findOneAndUpdate({id: interaction.guild.id}, {language: interaction.options.get('language').value.replace(/\.json$/, '')});
+            client.logger.info(`Language changed to ${interaction.options.get('language').value.replace(/\.json$/, '')} at server ${interaction.guild.name}`);
         } else {
-            client.config['universal.settings'].server.language = interaction.options.get('language').value.replace('.json', '');
+            client.config['universal.settings'].server.language = interaction.options.get('language').value.replace(/\.json$/, '');
             delete client.config['universal.settings'].server.id;
             fs.writeFile('./config.json', JSON.stringify(client.config, null, 4), 'utf8', () => {});
-            client.logger.info(`Universal language changed to ${interaction.options.get('language').value.replace('.json', '')}`);
+            client.logger.info(`Universal language changed to ${interaction.options.get('language').value.replace(/\.json$/, '')}`);
         }
-        await interaction.reply({content: `Language changed to **${interaction.options.get('language').value.replace('.json', '')}**.`});
+        await interaction.reply({content: `Language changed to **${interaction.options.get('language').value.replace(/\.json$/, '')}**.`});
     }
 };

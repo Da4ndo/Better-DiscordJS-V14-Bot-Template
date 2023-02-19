@@ -4,7 +4,7 @@ const path = require("path");
 const language = {};
 
 fs.readdirSync(`./language/`).filter(file => file.endsWith('.json') && !file.startsWith('#')).forEach((file) => {
-    eval(`language.${file.replace('.json', '')}`+` = require('../language/${file}')`);
+    eval(`language.${file.replace(/\.json/, '')}`+` = require('../language/${file}')`);
 });
 
 module.exports = (index, lang='en', replace=[]) => {
