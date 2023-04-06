@@ -1,6 +1,6 @@
 {
   "name": "better-discordjs-v14-bot-template",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "``` npm install discord.js @discordjs/rest ms dotenv moment ```",
   "main": "bot.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "@discordjs/rest": "^1.0.1",
-    "discord.js": "^14.2.0",
+    "discord.js": "^14.9.0",
     "dotenv": "^16.0.1",
     "moment": "^2.29.4",
     "mongoose": "^6.5.2",

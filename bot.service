@@ -4,7 +4,10 @@ Description=<description_about_your_project>
 [Service]
 User=<user>
 WorkingDirectory=<working_directory> pl.: /home/.../WorkingDirectory/
-ExecStart=npm start run
+ExecStart=npm run start
+Restart=always
+RestartSec=10
+Environment=NODE_ENV=production
 
 [Install]
 WantedBy=multi-user.target

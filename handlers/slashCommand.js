@@ -1,67 +1,69 @@
 const fs = require('fs');
+const path = require("path");
 const { PermissionsBitField, Routes } = require('discord.js');
-const { REST } = require('@discordjs/rest')
+const { REST } = require('@discordjs/rest');
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 module.exports = (client) => {
-	client.logger.debug(`Called handlers/slashCommand.js`);
-	const slashCommands = []; 
-	var loaded_slash_commands = [];
+  client.logger.debug(`Called handlers/slashCommand.js`);
+  const slashCommands = [];
+  const loadedSlashCommands = [];
 
-	fs.readdirSync('./slashCommands/', { withFileTypes: true }).filter((item) => item.isDirectory()).map((item) => item.name).forEach(dir => {
-		fs.readdirSync(`./slashCommands/${dir}/`).filter(file => file.endsWith('.js') && !file.startsWith('#')).forEach((file) => {
-			const slashCommand = require(`../slashCommands/${dir}/${file}`);
-			if(slashCommand.name) {
-				slashCommands.push({
-					name: slashCommand.name,
-					description: slashCommand.description,
-					type: slashCommand.type,
-					options: slashCommand.options ? slashCommand.options : null,
-					default_permission: slashCommand.permissions.slash_register_data.default_permission ? slashCommand.permissions.slash_register_data.default_permission : null,
-					default_member_permissions: slashCommand.permissions.slash_register_data.default_member_permissions ? PermissionsBitField.resolve(slashCommand.permissions.slash_register_data.default_member_permissions).toString() : null,
-					dm_permission: slashCommand.dm_permission ? true : false
-				});
-		
-				client.slashCommands.set(slashCommand.name, slashCommand);
-				loaded_slash_commands.push(file.split('.js')[0]);
-				client.logger.info(`Loaded slashCommand: ${slashCommand.name}`);
-			}
-		});
-	});
+  fs.readdirSync('./slashCommands/', { withFileTypes: true }).filter((item) => item.isDirectory()).map((item) => item.name).forEach(dir => {
+    fs.readdirSync(`./slashCommands/${dir}/`).filter(file => file.endsWith('.js') && !file.startsWith('#')).forEach((file) => {
+      const slashCommand = require(`../slashCommands/${dir}/${file}`);
+      if (slashCommand.name) {
+        const options = slashCommand.options || [];
+        const commandData = {
+          name: slashCommand.name,
+          description: slashCommand.description,
+          options,
+          default_permission: slashCommand.permissions.slash_register_data.default_permission ?? null,
+          default_member_permissions: slashCommand.permissions.slash_register_data.default_member_permissions ? PermissionsBitField.resolve(slashCommand.permissions.slash_register_data.default_member_permissions).toString() : null,
+          dm_permission: slashCommand.dm_permission ?? false
+        };
+        slashCommands.push(commandData);
+        client.slashCommands.set(slashCommand.name, slashCommand);
+        loadedSlashCommands.push(`${dir}/${slashCommand.name}`);
+        client.logger.info(`Loaded slash command: ${dir}/${slashCommand.name}`);
+      }
+    });
+  });
 
-	fs.readdirSync(`./slashCommands/`).filter(file => file.endsWith('.js') && !file.startsWith('#')).forEach((file) => {
-		const slashCommand = require(`../slashCommands/${file}`);
-		if(slashCommand.name) {
-			slashCommands.push({
+  fs.readdirSync('./slashCommands/').filter(file => file.endsWith('.js') && !file.startsWith('#')).forEach((file) => {
+    const slashCommand = require(`../slashCommands/${file}`);
+    if (slashCommand.name) {
+      const options = slashCommand.options || [];
+			const commandData = {
 				name: slashCommand.name,
 				description: slashCommand.description,
-				type: slashCommand.type,
-				options: slashCommand.options ? slashCommand.options : null,
-				default_permission: slashCommand.permissions.slash_register_data.default_permission ? slashCommand.permissions.slash_register_data.default_permission : null,
+				options,
+				default_permission: slashCommand.permissions.slash_register_data.default_permission ?? null,
 				default_member_permissions: slashCommand.permissions.slash_register_data.default_member_permissions ? PermissionsBitField.resolve(slashCommand.permissions.slash_register_data.default_member_permissions).toString() : null,
-				dm_permission: slashCommand.dm_permission ? true : false
-			});
-		
-			client.slashCommands.set(slashCommand.name, slashCommand);
-			loaded_slash_commands.push(file.split('.js')[0]);
-			client.logger.info(`Loaded slashCommand: ${slashCommand.name}`);
-		}
-	});
+				dm_permission: slashCommand.dm_permission ?? false
+			};
+      slashCommands.push(commandData);
+      client.slashCommands.set(slashCommand.name, slashCommand);
+      loadedSlashCommands.push(slashCommand.name);
+      client.logger.info(`Loaded slash command: ${slashCommand.name}`);
+    }
+  });
 
-	console.log(`Loaded Slash Commands: \n    ${loaded_slash_commands.join('\n    ')}`);
-	if (slashCommands) {
-		(async () => {
-			try {
-				await rest.put(
+  console.log(`Loaded Slash Commands: \n    ${loadedSlashCommands.join('\n    ')}`);
+  if (slashCommands.length > 0) {
+    (async () => {
+      try {
+        await rest.put(
 					Routes.applicationCommands(process.env.CLIENT_ID), 
-					{ body: slashCommands },
-				);
-				console.log(`Slash Commands • Registered`);
-				client.logger.debug(`Registered Slash Commands`);
-			} catch (error) {
-				client.logger.error(error);
-				console.log(`\x1b[31m> Error: ${error}\x1b[0m`);
-			}
-		})();
-	}
+          // Routes.applicationGuildCommands(client.user.id, process.env.GUILD_ID), // Specific guild 
+          { body: slashCommands },
+        );
+        console.log('Slash commands were registered.');
+        client.logger.debug('Registered Slash Commands');
+      } catch (error) {
+        client.logger.error(error);
+        console.log(`\x1b[31m> Error: ${error}\x1b[0m`);
+      }
+    })();
+  }
 };

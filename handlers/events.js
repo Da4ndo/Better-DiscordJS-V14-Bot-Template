@@ -1,12 +1,18 @@
-const fs = require('fs');
+const fs = require("fs");
+const path = require("path");
 
 module.exports = (client) => {
-	client.logger.debug(`Called handlers/events.js`);
-	var loaded_events = [];
-    fs.readdirSync('./events/').filter((file) => file.endsWith('.js')).forEach((event) => {
-      	require(`../events/${event}`);
-		loaded_events.push(event.split('.js')[0])
-		client.logger.info(`Loaded event: ${event.split('.js')[0]}`);
-	})
-	console.log(`Loaded Events: \n    ${loaded_events.join('\n    ')}`);
+  client.logger.debug(`Called handlers/events.js`);
+  const loadedEvents = [];
+
+  fs.readdirSync("./events/")
+    .filter((file) => file.endsWith(".js"))
+    .forEach((event) => {
+      require(`../events/${event}`);
+      const eventName = path.basename(event, ".js");
+      loadedEvents.push(eventName);
+      client.logger.info(`Loaded event: ${eventName}`);
+    });
+
+  console.log(`Loaded Events: \n    ${loadedEvents.join("\n    ")}`);
 };

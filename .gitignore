@@ -1,6 +1,6 @@
 .vscode/
 .git/
 node_modules/
+log/
 
 .dccache
-./log

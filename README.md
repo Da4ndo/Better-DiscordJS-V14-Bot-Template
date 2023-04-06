@@ -39,6 +39,8 @@ Discord.js Documentation is linked [here](https://discord.js.org/#/docs/discord.
 
 > **Note:** There are a few basic PrefixCommands/SlashCommands/Events/Components added.
 
+> **Important Note:** While the code has been tested, there may still be issues, especially around permission to execute commands. Keep in mind that the included commands, components, and slash commands are examples and should be customized before deployment.
+
 # How to setup:
 
 ### 1. Install Required Packages
@@ -80,7 +82,7 @@ node bot.js
 
 ---------------
 
-### Setup bot as a service (***linux only***, ***SYSTEMD WAY***):
+### Setup bot as a service in linux (***SYSTEMD WAY***):
 
 1. Modify bot.service name to <your_bot_name>.service and fill the missing data in it.
 
