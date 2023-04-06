@@ -31,7 +31,7 @@
 
 # Better DiscordJS V14 Bot Template
 
-The Discord bot project made with the npm package of discord.js version 14. It handles prefix/slash commands, events, components, multiple languages and logging. You can create as many commands as you want to shape your Bot as you want. **Project made with ❤ by Da4ndo.**
+The Discord bot project made with the npm package of discord.js version 14. It handles prefix commands, slash commands, events, components, multiple languages and logging. You can create as many commands as you want to shape your Bot as you want. **Project made with ❤ by Da4ndo.**
 
 You can click on the star (⭐️) button above this repository if you liked this project! Thank you all. 🙏
 
@@ -40,6 +40,17 @@ Discord.js Documentation is linked [here](https://discord.js.org/#/docs/discord.
 > **Note:** There are a few basic PrefixCommands/SlashCommands/Events/Components added.
 
 > **Important Note:** While the code has been tested, there may still be issues, especially around permission to execute commands. Keep in mind that the included commands, components, and slash commands are examples and should be customized before deployment.
+
+# Changelog
+
+## [1.1.0] - 2023-04-06
+
+### Changed
+- Updated all file (handlers, events, utils...) quality and efficiency.
+- Updated versions of dependencies.
+- Fixed command not enabled issue.
+
+(More in [**CHANGELOG.md**](https://github.com/Da4ndo/Better-DiscordJS-V14-Bot-Template/blob/main/CHANGELOG.md))
 
 # How to setup:
 
