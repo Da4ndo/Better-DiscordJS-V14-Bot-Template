@@ -43,12 +43,12 @@ Discord.js Documentation is linked [here](https://discord.js.org/#/docs/discord.
 
 # Changelog
 
-## [1.1.0] - 2023-04-06
+## [1.1.1] - 2023-04-22
 
 ### Changed
-- Updated all file (handlers, events, utils...) quality and efficiency.
-- Updated versions of dependencies.
-- Fixed command not enabled issue.
+- Fixed and improved connection to Mongo database
+- Added Dockerfile, .dockerignore
+- Improved docker-compose.yml
 
 (More in [**CHANGELOG.md**](https://github.com/Da4ndo/Better-DiscordJS-V14-Bot-Template/blob/main/CHANGELOG.md))
 

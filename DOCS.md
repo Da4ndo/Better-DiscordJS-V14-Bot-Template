@@ -41,18 +41,15 @@ You can set the bot's owners in config.json. You need to add the ownerss discord
 
 ### Database Settings
 
-Supported database is **MongoDB**. You can enable the database by setting the enable key to true. You need a link/IP address for the bot (e.g.: `mongodb://root:<password>@link.mongodb.net/` or `mongodb://192.168.XXX.XXX/`). For local database use **docker-compose.yml**. To get the IP address of the local database you can use Visual Studio Code > Docker Extension. Choose the **container** > **right click** > **select inspect** and the bottom of the file, there is "IpAddress" parameter or by executing this simple command:
-```bash
-docker inspect <containerName> -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"
-```
+Supported database is **MongoDB**. You can enable the database by setting the database key to true. You need a link/IP address for the bot (e.g.: `mongodb://root:<password>@link.mongodb.net/mydb` or `mongodb://mongo:27017/mzdvb or `mongodb://172.19.0.2/`). For local database use **docker-compose.yml**. 
 
-### Server/Universal Settings
+### Default Server Settings
 
 The bot can work in two ways. Either use a database or don't. 
 
-**If the bot uses database**, the logic when the bot receives a message on a server that is not in the database, it registers it. The basic settings will be the universal settings section in the config file. After that, you can modify the settings with pre-prepared commands. 
+**If the bot uses database**, the logic when the bot receives a message on a server that is not in the database, it registers it. The basic settings will be the default section in the config file. After that, you can modify the settings with pre-prepared commands. 
 
-**If the bot does not use a database**, universal.settings will apply to all servers. The manager section **does not** need to be modified. Regardless of whether you use a database or not, the bot saves the settings automatically.
+**If the bot does not use a database**, default section will apply to all servers. The manager section **does not** need to be modified. Regardless of whether you use a database or not, the bot saves the settings automatically.
 
 #### Groups
 
