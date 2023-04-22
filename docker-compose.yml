@@ -1,6 +1,21 @@
-version: "3.9"
-services: 
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: bot
+    env_file: .env
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/botdb
+    depends_on:
+      - mongo
+
   mongo:
     image: mongo
-    expose: 
-      - 27017
+    container_name: mongodb
+    restart: unless-stopped
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:

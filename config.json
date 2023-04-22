@@ -1,11 +1,7 @@
 {
     "owners": [],
-    "database.settings": {
-        "enabled": false,
-        "url": "mongodb://172.18.0.2/",
-        "database": "dcbot"
-    },
-    "universal.settings": {
+    "database": true,
+    "default": {
         "server": {
             "prefix": "!",
             "language": "en",

@@ -6,9 +6,10 @@ function sleep(ms) {
 
 async function connect(client) {
   process.stdout.write("> Connecting to database... \r");
+  const connectionString = `${process.env.MONGO_URL}`;
 
   mongoose.connect(
-    `${client.config["database.settings"].url}${client.config["database.settings"].database}`,
+    connectionString,
     { useNewUrlParser: true, keepAlive: true },
     function (err) {
       if (err) {
@@ -41,10 +42,10 @@ async function connect(client) {
     count++;
   }
   client.logger.info(
-    `[DB] Connected to database. (${client.config["database.settings"].url}${client.config["database.settings"].database})`
+    `[DB] Connected to database. (${connectionString})`
   );
   process.stdout.write(
-    `\x1b[32m> Connected to database. (${client.config["database.settings"].url}${client.config["database.settings"].database})\x1b[0m\n`
+    `\x1b[32m> Connected to database. (${connectionString})\x1b[0m\n`
   );
 }
 
@@ -52,8 +53,8 @@ async function getServer(id) {
   const client = require("../../bot");
   client.logger.debug("Called get_server");
 
-  if (!client.config["database.settings"].enabled) {
-    const server = client.config["universal.settings"].server;
+  if (!client.config.database) {
+    const server = client.config.default.server;
     server.id = String(id);
     let commands_data = [];
 
@@ -106,13 +107,13 @@ async function getServer(id) {
 
       const newServer = new client.models.server({
         id: String(id),
-        language: client.config["universal.settings"].server.language,
-        prefix: client.config["universal.settings"].server.prefix,
+        language: client.config.default.server.language,
+        prefix: client.config.default.server.prefix,
         commands_data: commands_data,
         enabled_events:
-          client.config["universal.settings"].server.enabled_events,
+          client.config.default.server.enabled_events,
         enabled_managers:
-          client.config["universal.settings"].server.enabled_managers,
+          client.config.default.server.enabled_managers,
         groups: new Map(),
       });
 
@@ -121,13 +122,13 @@ async function getServer(id) {
 
       return {
         id: String(id),
-        language: client.config["universal.settings"].server.language,
-        prefix: client.config["universal.settings"].server.prefix,
+        language: client.config.default.server.language,
+        prefix: client.config.default.server.prefix,
         commands_data: commands_data,
         enabled_events:
-          client.config["universal.settings"].server.enabled_events,
+          client.config.default.server.enabled_events,
         enabled_managers:
-          client.config["universal.settings"].server.enabled_managers,
+          client.config.default.server.enabled_managers,
         groups: new Map(),
       };
     }
@@ -188,7 +189,7 @@ async function getManager(name) {
   const client = require("../../bot");
   client.logger.debug("Called get_manager");
 
-  if (client.config["database.settings"].enabled) {
+  if (client.config.database) {
     try {
       const manager = await client.models.manager
         .findOne({ name: String(name) })
@@ -215,7 +216,7 @@ async function getManager(name) {
       throw err;
     }
   } else {
-    return client.config["universal.settings"].manager[name];
+    return client.config.default.manager[name];
   }
 }
 

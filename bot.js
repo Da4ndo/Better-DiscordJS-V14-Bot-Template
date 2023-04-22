@@ -36,7 +36,7 @@ client.aliases = new Collection();
 client.slashCommands = new Collection();
 client.buttons = new Collection();
 client.select_menus = new Collection();
-client.prefix = config["universal.settings"].server.prefix;
+client.prefix = config["default"].server.prefix;
 client.config = config;
 client.models = require("./utils/db/models");
 client.logger = new Logger(`./log/${moment().format("YYYY-MM-DD")}.log`);
@@ -45,7 +45,7 @@ client.get = dbManager.get
 client.logger
   .init()
   .then(async () => {
-    if (config["database.settings"].enabled) await dbManager.connect(client);
+    if (config.database) await dbManager.connect(client);
 
     client.logger.info("[MAIN] Called handlers initialization");
     ["command", "slashCommand", "events", "component"].forEach((handler) => {
