@@ -1,6 +1,6 @@
 {
     "owners": [],
-    "database": true,
+    "database": false,
     "default": {
         "server": {
             "prefix": "!",
