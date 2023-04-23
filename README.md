@@ -75,7 +75,7 @@ Set token and client id in **.env**, and modify settings to your preference in *
 
 The bot can work in two ways, either with a database or not.
 
-Supported database is **MongoDB**. You can enable the database by setting the database key to true. You need a link/IP address for the bot (e.g.: `mongodb://root:<password>@link.mongodb.net/mydb` or `mongodb://mongo:27017/mzdvb or `mongodb://172.19.0.2/`). For local database use **docker-compose.yml**. 
+Supported database is **MongoDB**. You can enable the database by setting the database key to true. You need a link/IP address for the bot (e.g.: `mongodb://root:<password>@link.mongodb.net/mydb` or `mongodb://mongo:27017/mydb` or `mongodb://172.19.0.2/`). For local database use **docker-compose.yml**. 
 
 # How to start?
 
