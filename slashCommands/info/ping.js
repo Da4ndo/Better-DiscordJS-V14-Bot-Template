@@ -1,4 +1,5 @@
 const { ApplicationCommandType } = require('discord.js');
+const lang = require('../../utils/lang.js');
 
 module.exports = {
 	name: 'ping',
@@ -23,6 +24,7 @@ module.exports = {
         usage: '/{command}',
     },
 	run: async (client, interaction) => {
-		await interaction.reply({ content: `🏓 Pong! Latency: **${Math.round(client.ws.ping)} ms**`, ephemeral: true })
+        const server = await client.get.server(interaction.guild.id);
+		await interaction.reply({ content: lang('commands:ping', server.language, [Math.round(client.ws.ping)]), ephemeral: true })
 	}
 };

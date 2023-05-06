@@ -44,9 +44,33 @@
             "succesful": "A(z) {0} sikeresen beállítva.",
             "error": "Valami elromlott."
         },
+        "userinfo": {
+            "title": "Felhasználói információk {0}-ról",
+            "name": "Név",
+            "id": "Azonosító",
+            "joined_at": "Csatlakozott",
+            "activity": "Aktivitás",
+            "desktop_status": "Asztali állapot",
+            "top_role": "Legmagasabb rang",
+            "roles_count": "Rangok száma"
+        },
+        "serverinfo": {
+            "title": "Szerver információ",
+            "name": "Név",
+            "id": "Azonosító",
+            "owner": "Tulajdonos",
+            "created_at": "Létrehozva",
+            "channels_count": "Csatornák száma",
+            "roles_count": "Rangok száma",
+            "premium_sub_count": "Boosztok száma",
+            "premium_sub_tier": "Booszt szint",
+            "icon_url": "Ikon URL",
+            "afk_timeout": "AFK Időkorlát"
+        },
+        "avatar": "Itt az avatarja a(z) {0} felhasználónak: {1}",
         "help": {
             "title": "Segítség",
-            "description": "Segítség a parancsok használatához."
+            "description": "Segítség a parancsok használatához. Nézd meg a slash (**/**) parancsokat a discordon azzak, hogy elkezdesz írni egy \"/\"-t."
         }
     },
     "expressions": {

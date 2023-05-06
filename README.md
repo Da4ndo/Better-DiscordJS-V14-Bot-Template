@@ -43,12 +43,14 @@ Discord.js Documentation is linked [here](https://discord.js.org/#/docs/discord.
 
 # Changelog
 
-## [1.1.1] - 2023-04-22
+## [1.2.0] - 2023-05-6
 
 ### Changed
-- Fixed and improved connection to Mongo database
-- Added Dockerfile, .dockerignore
-- Improved docker-compose.yml
+- Updated handlers to load all valid command files in their directory and all its subdirectories, regardless of how deep the subdirectories go
+- Fixed forgetten false reference for configs
+
+### Added
+- More basic slash commands (userinfo, serverinfo, avatar)
 
 (More in [**CHANGELOG.md**](https://github.com/Da4ndo/Better-DiscordJS-V14-Bot-Template/blob/main/CHANGELOG.md))
 
@@ -85,7 +87,7 @@ npm run start
 ```
 **OR**
 ```bash
-node bot.js
+docker-compose up
 ```
 
 ---------------

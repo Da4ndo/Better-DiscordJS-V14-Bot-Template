@@ -44,9 +44,33 @@
             "succesful": "Successfully setuped {0}.",
             "error": "Something went wrong."
         },
+        "userinfo": {
+            "title": "User Info for {0}",
+            "name": "Name",
+            "id": "ID",
+            "joined_at": "Joined At",
+            "activity": "Activity",
+            "desktop_status": "Desktop Status",
+            "top_role": "Top Role",
+            "roles_count": "Roles Count"
+        },
+        "serverinfo": {
+            "title": "Server Information",
+            "name": "Name",
+            "id": "ID",
+            "owner": "Owner",
+            "created_at": "Created At",
+            "channels_count": "Channels Count",
+            "roles_count": "Roles Count",
+            "premium_sub_count": "Boosts",
+            "premium_sub_tier": "Boost Tier",
+            "icon_url": "Icon URL",
+            "afk_timeout": "AFK Timeout"
+        },
+        "avatar": "Here is the avatar of `{0}`: {1}",
         "help": {
             "title": "Help Message",
-            "description": "Help for command usage."
+            "description": "Help for command usage. Check slash (**/**) commands on discord by typing \"/\"."
         }
     },
     "expressions": {
